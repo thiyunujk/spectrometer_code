@@ -1,3 +1,9 @@
+
+gui_qt
+pyth_file
+ui python file
+unwanted
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

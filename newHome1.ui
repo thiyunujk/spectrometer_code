@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>320</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="styleSheet">
+       <string notr="true">QFrame, QLabel, QToolTip { border: 2px solid black; border-radius: 3px; padding: 1px; background-color: rgb(0, 61, 90); color: white; }</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="minimumSize">
+             <size>
+              <width>2</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans SemiBold</family>
+              <pointsize>20</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>AI Powerd Spectrometer</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_3">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>180</height>
+          </size>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="absorbanceBtn">
+            <property name="styleSheet">
+             <string notr="true">	QPushButton {
+	background-color: #138086;
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: black;
+    font: bold 12px;
+    min-width: 3em;
+    padding: 3px;
+	color:rgb(255,255,255);
+}
+QPushButton:pressed {
+	background-color:rgb(100,170,255)
+}</string>
+            </property>
+            <property name="text">
+             <string>Absorbance</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="TransmissionBtn">
+            <property name="styleSheet">
+             <string notr="true">	QPushButton {
+	background-color: #138086;
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: black;
+    font: bold 12px;
+    min-width: 3em;
+    padding: 3px;
+	color:rgb(255,255,255);
+}
+QPushButton:pressed {
+	background-color:rgb(100,170,255)
+}</string>
+            </property>
+            <property name="text">
+             <string>Transmission</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="reflectanceBtn">
+            <property name="styleSheet">
+             <string notr="true">	QPushButton {
+	background-color: #138086;
+    border-style: outset;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: black;
+    font: bold 12px;
+    min-width: 3em;
+    padding: 3px;
+	color:rgb(255,255,255);
+}
+QPushButton:pressed {
+	background-color:rgb(100,170,255)
+}</string>
+            </property>
+            <property name="text">
+             <string>Reflectance</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

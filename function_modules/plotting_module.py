@@ -1,7 +1,8 @@
-# function_modules/plotting_module.py
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from arduino_communication import ArduinoCommunication
 
-def scale_and_plot_data(data_array):
+def scale_and_plot_data(data_array, canvas):
     # Define the desired x-axis range
     x_min = 300
     x_max = 900
@@ -15,16 +16,28 @@ def scale_and_plot_data(data_array):
     # Map the indices to the x-axis range
     x_values = [x_min + i * scaling_factor_x for i in range(len(data_array))]
 
-    # Group the original data points based on the scaled x-axis intervals
-    grouped_data = [data_array[i:i+data_points_per_x_point] for i in range(0, len(data_array), data_points_per_x_point)]
+    # Scale the y-axis values between 0 and 1
+    y_values = [(value - min(data_array)) / (max(data_array) - min(data_array)) for value in data_array]
 
-    # Calculate the average for each interval
-    averaged_data = [sum(group) / len(group) for group in grouped_data]
+    # Plot the original data on the provided canvas
+    canvas.plot(x_values, y_values, label='Sensor Data')
+    canvas.set_xlabel('X Axis Label')
+    canvas.set_ylabel('Y Axis Label (Scaled)')
+    canvas.legend()
+    canvas.figure.canvas.draw()
 
-    # Plot the averaged data
-    plt.plot(x_values[:len(averaged_data)], averaged_data, label='Averaged Sensor Data')
-    plt.xlabel('X Axis Label')
-    plt.ylabel('Y Axis Label (Averaged)')
-    plt.legend()
+def main():
+    # Create an instance of ArduinoCommunication
+    arduino_comm = ArduinoCommunication()
+
+    # Read data from Arduino
+    data_array = arduino_comm.read_data()
+
+    # Plot the scaled data
+    fig, ax = plt.subplots()
+    canvas = FigureCanvas(fig)
+    scale_and_plot_data(data_array, ax)
     plt.show()
 
+if __name__ == "__main__":
+    main()

@@ -7,31 +7,46 @@ import random
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView
-from function_modules.communicate_with_arduino import establish_communication
-from function_modules.plotting_module import scale_and_plot_data
 
+##
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from function_modules.arduino_communication import ArduinoCommunication
+from function_modules.graph_plotter import GraphPlotter
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('newHome1.ui', self)
-    
+        uic.loadUi('ui/newHome1.ui', self)
+        
+        
     # button configuration
         self.absorbanceBtn.clicked.connect(self.goto_Calib_pge)
         self.TransmissionBtn.clicked.connect(self.goto_Calib_pge)
         self.reflectanceBtn.clicked.connect(self.goto_Calib_pge)
-        self.reflectanceBtn.clicked.connect(self.communicate_with_arduino)
+        self.reflectanceBtn.clicked.connect(self.setup_and_communicate_with_arduino)
+    # Variable to hold data from Arduino
+        self.data_array = None
+    
+    
+    def setup_and_communicate_with_arduino(self):
+        # Create an instance of ArduinoCommunication
+        arduino_comm = ArduinoCommunication()
 
-    def communicate_with_arduino(self):
-        response = establish_communication()
+        # Read data from Arduino
+        self.data_array = arduino_comm.read_data()
 
-        if response is not None:
-            data_array = response  
-            self.plot_data_on_qgraphicobject(data_array)
-
+        # Optionally, you can print or use self.data_array here
+        print("Received Data:") #self.data_array
+        # Create an instance of graphHome3 and pass self.data_array
+        self.graph_home = graphHome3(self.data_array)
+        self.graph_home.show()
+        self.close()
             
+           
+                
     def goto_Calib_pge(self):
-        self.calib_pge = calibrationmain2()
+        self.calib_pge = graphHome3()
         self.calib_pge.show()
         self.close()
 
@@ -40,7 +55,7 @@ class MainWindow(QMainWindow):
 class calibrationmain2(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("calibrationmain2.ui", self)
+        uic.loadUi("ui/calibrationmain2.ui", self)
         self.tabWidget.setCurrentIndex(0)
 
     #button configuration
@@ -62,36 +77,27 @@ class calibrationmain2(QMainWindow):
 
 
 class graphHome3(QMainWindow):
-    def __init__(self):
+    def __init__(self, data_array=None):
         super().__init__()
-        uic.loadUi("graph_home3.ui",self)
-
+        uic.loadUi("ui/graph_home3.ui",self)
+        self.data_array = data_array
+        
      # button configuration
-        self.StartButton.clicked.connect(self.startspectrometer)
+        self.StartButton.clicked.connect(self.print_data)
         self.takesampleButton.clicked.connect(self.Take_sample_for_ML)
         self.PredictButton.clicked.connect(self.Get_Prediction)
-
-    # Timer for live update (adjust interval as needed)
-        self.update_timer = QtCore.QTimer(self)
-        self.update_timer.timeout.connect(self.update_plot)
-        self.update_timer.start(500)  # Update every 500 milliseconds
-
-    def update_plot(self):
-        # Update data_array with new data from Arduino (replace this with your data retrieval logic)
-        # Example: self.data_array = get_new_data_from_arduino()
-        # For now, let's assume it's a placeholder list
-        data_array = [random.randint(0, 900) for _ in range(2090)]
-
-        # Scale and plot the data on the existing QGraphicsView
-        scale_and_plot_data(data_array, self.graphHomeqgraphic)
         
-    def startspectrometer(self):
-        pass
+        
+    def print_data(self):
+        if self.data_array is not None:
+            print("Received Data in graphHome3:" ,self.data_array)
+        else:
+            print("No data available.")
 
     def Take_sample_for_ML(self):
-            self.take_sample_screen = TakeSampleScreen()
-            self.take_sample_screen.show()
-            self.close()
+        self.take_sample_screen = TakeSampleScreen()
+        self.take_sample_screen.show()
+        self.close()
 
     def Get_Prediction(self):
         self.get_prediction_screen = GetPredictionScreen()
@@ -101,7 +107,7 @@ class graphHome3(QMainWindow):
 class TakeSampleScreen(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("take_sample_screen.ui", self)
+        uic.loadUi("ui/take_sample_screen.ui", self)
         self.backButton.clicked.connect(self.show_main_window)
         self.TrainModelBtn.clicked.connect(self.model_train_screen)
 
@@ -167,7 +173,7 @@ class TakeSampleScreen(QMainWindow):
 class GetPredictionScreen(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("prediction_screen.ui", self)
+        uic.loadUi("ui/prediction_screen.ui", self)
         self.backButton.clicked.connect(self.show_main_window)
         self.take_sample_btn.clicked.connect(self.show_sample_pickup_status)
 
@@ -198,7 +204,7 @@ class GetPredictionScreen(QMainWindow):
 class ModeltrainScreen(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("model_training_screen.ui", self)
+        uic.loadUi("ui/model_training_screen.ui", self)
         self.backButton.clicked.connect(self.show_main_window)
         self.gotoPredictionBtn.clicked.connect(self.Get_Prediction)
 

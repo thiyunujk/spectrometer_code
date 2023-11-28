@@ -1,10 +1,6 @@
 import sys
-import typing
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QStackedWidget
-from PyQt5.QtCore import Qt
 from PyQt5 import QtCore, uic
-import random
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView
 
@@ -19,35 +15,32 @@ class MainWindow(QMainWindow):
         super().__init__()
         uic.loadUi('ui/newHome1.ui', self)
         
+
         
     # button configuration
-        self.absorbanceBtn.clicked.connect(self.goto_Calib_pge)
-        self.TransmissionBtn.clicked.connect(self.goto_Calib_pge)
-        self.reflectanceBtn.clicked.connect(self.goto_Calib_pge)
-        self.reflectanceBtn.clicked.connect(self.setup_and_communicate_with_arduino)
-    # Variable to hold data from Arduino
-        self.data_array = None
+        self.absorbanceBtn.clicked.connect(self.gg)
+        self.TransmissionBtn.clicked.connect(self.goto_graph_home3)
+        self.reflectanceBtn.clicked.connect(self.goto_graph_home3)
+        #self.reflectanceBtn.clicked.connect(self.setup_and_communicate_with_arduino)
     
     
-    def setup_and_communicate_with_arduino(self):
-        # Create an instance of ArduinoCommunication
-        arduino_comm = ArduinoCommunication()
+    
+    # def setup_and_communicate_with_arduino(self):
+    #     # Create an instance of ArduinoCommunication
+    #     arduino_comm = ArduinoCommunication()
 
-        # Read data from Arduino
-        self.data_array = arduino_comm.read_data()
+    #     # Read data from Arduino
+    #     self.data_array = arduino_comm.read_data()
+    #     print("Received Data:" ,self.data_array)
 
-        # Optionally, you can print or use self.data_array here
-        print("Received Data:") #self.data_array
-        # Create an instance of graphHome3 and pass self.data_array
-        self.graph_home = graphHome3(self.data_array)
+    def gg(self):
+        self.graph_home = calibrationmain2()
         self.graph_home.show()
-        self.close()
-            
-           
+        self.close()    
                 
-    def goto_Calib_pge(self):
-        self.calib_pge = graphHome3()
-        self.calib_pge.show()
+    def goto_graph_home3(self):
+        self.graph_home = graphHome3()
+        self.graph_home.show()
         self.close()
 
 
@@ -234,3 +227,10 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
  
+import serial
+
+# Connect to the Arduino
+ser = serial.Serial('/dev/ttyACM0', 9600)
+
+# Read data from the Arduino
+data_array = ser.readline()

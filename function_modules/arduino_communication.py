@@ -36,7 +36,7 @@ class ArduinoCommunication:
         if os.name == 'posix':  # Linux
             return '/dev/ttyACM0'
         elif os.name == 'nt':  # Windows
-            return 'COM3'
+            return 'COM10'
         else:
             raise OSError("Unsupported operating system")
 

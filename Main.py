@@ -19,8 +19,8 @@ class MainWindow(QMainWindow):
         
     # button configuration
         self.absorbanceBtn.clicked.connect(self.gg)
-        self.TransmissionBtn.clicked.connect(self.goto_graph_home3)
-        self.reflectanceBtn.clicked.connect(self.goto_graph_home3)
+        self.TransmissionBtn.clicked.connect(self.gg)
+        self.reflectanceBtn.clicked.connect(self.gg)
         #self.reflectanceBtn.clicked.connect(self.setup_and_communicate_with_arduino)
     
     

@@ -212,9 +212,9 @@ class Ui_MainWindow(object):
         self.whiteRefBtn.setObjectName(u"whiteRefBtn")
         self.whiteRefBtn.setGeometry(QRect(10, 33, 91, 81))
         font5 = QFont()
-        font5.setPointSize(36)
+        font5.setPointSize(10)
         self.whiteRefBtn.setFont(font5)
-        self.whiteRefBtn.setIconSize(QSize(18, 18))
+        self.whiteRefBtn.setIconSize(QSize(11, 11))
 
         self.gridLayout.addWidget(self.frame_4, 0, 0, 1, 1)
 
@@ -310,7 +310,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -328,11 +328,11 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Reference spectrum preview", None))
         self.tab2NextBtn.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Store Reference", None))
-        self.whiteRefBtn.setText(QCoreApplication.translate("MainWindow", u"\ud83d\udca1", None))
+        self.whiteRefBtn.setText(QCoreApplication.translate("MainWindow", u"white ref", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tab 2", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Live Acquistion", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Store Reference", None))
-        self.darkrefBtn.setText(QCoreApplication.translate("MainWindow", u"\ud83d\udd26", None))
+        self.darkrefBtn.setText(QCoreApplication.translate("MainWindow", u"Dark Ref", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"Reference spectrum preview", None))
         self.finishBtn.setText(QCoreApplication.translate("MainWindow", u"Finish", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("MainWindow", u"Tab 3", None))
